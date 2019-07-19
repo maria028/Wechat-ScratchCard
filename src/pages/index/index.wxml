@@ -1,6 +1,1 @@
-    
-<import src="../../template/goHome.wxml"/>
-<template is="HOME"></template>
-
-<canvas style="background: url('https://rattenking.gitee.io/stone/images/wx/images/juan.png') no-repeat center center" canvas-id="luck" class="tui-luck" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd"></canvas>
-
+<canvas canvas-id="luck" style=" width: {{width}}px;height: {{height}}px;background: url('https://rattenking.gitee.io/stone/images/wx/images/juan.png') no-repeat center center" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd"></canvas>
