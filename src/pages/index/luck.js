@@ -7,8 +7,6 @@ class Luck {
     this.height = options.height;
     this.maskColor = options.maskColor;
     this.size = options.size;
-    this.r = this.size * 2;
-    this.area = this.r * this.r;
     this.scale = options.scale;
     this.totalArea = this.width * this.height;
     this.init();
@@ -38,8 +36,8 @@ class Luck {
       this.clearPointsList.push({
         x1: x1,
         y1: y1,
-        x2: x1 + this.r,
-        y2: y1 + this.r
+        x2: x1 + this.size,
+        y2: y1 + this.size
       })
     }
     for (let val of this.clearPointsList) {
@@ -53,14 +51,21 @@ class Luck {
       this.clearPointsList.push({
         x1: x1,
         y1: y1,
-        x2: x1 + this.r,
-        y2: y1 + this.r
+        x2: x1 + this.size,
+        y2: y1 + this.size
       })
     }
-    if (this.clearPointsList.length && this.r * this.r * this.clearPointsList.length > this.scale * this.totalArea) {
+    if (this.clearPointsList.length && this.size * this.size * this.clearPointsList.length > this.scale * this.totalArea) {
       this.show = true;
     }
-    this.ctx.clearRect(x1, y1, this.r, this.r);
+
+    this.ctx.save();
+    this.ctx.beginPath();
+    this.ctx.arc(x + this.size, y + this.size, this.size, 0, 2 * Math.PI);
+    this.ctx.clip();
+    this.ctx.clearRect(x, y, 2 * this.size, 2 * this.size);
+    this.ctx.restore();
+
     this.ctx.draw(true);
   }
   //操作手势
