@@ -1,0 +1,7 @@
+    
+.tui-luck{
+  width: 300px;
+  height: 150px;
+  margin: 20px auto;
+  background-color: #ddd;
+}
