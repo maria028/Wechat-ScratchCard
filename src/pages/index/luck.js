@@ -16,31 +16,37 @@ class Luck {
     this.show = false;
     this.clearPointsList = [];//清除的坐标点
     this.ctx = wx.createCanvasContext(this.canvasId, this);
+
     this.drawMask();
     this.bindTouch();
   }
   //创建遮罩
   drawMask() {
+    this.ctx.save();
     this.ctx.setFillStyle(this.maskColor);
     this.ctx.fillRect(0, 0, this.width, this.height);
+    this.ctx.restore();
+
     this.ctx.draw();
   }
   //清除操作
   eraser(e, bool) {
-    let len = this.clearPointsList.length;
+    let ctx = wx.createCanvasContext(e.currentTarget.dataset.id, this);
+    const that = this.page[e.currentTarget.dataset.id]
+    let len = that.clearPointsList.length;
     let count = 0
     let x = e.touches[0].x, y = e.touches[0].y;
-    let x1 = x - this.size;
-    let y1 = y - this.size;
+    let x1 = x - that.size;
+    let y1 = y - that.size;
     if (bool) {
-      this.clearPointsList.push({
+      that.clearPointsList.push({
         x1: x1,
         y1: y1,
-        x2: x1 + this.size,
-        y2: y1 + this.size
+        x2: x1 + that.size,
+        y2: y1 + that.size
       })
     }
-    for (let val of this.clearPointsList) {
+    for (let val of that.clearPointsList) {
       if (val.x1 > x || val.y1 > y || val.x2 < x || val.y2 < y) {
         count++;
       } else {
@@ -48,25 +54,25 @@ class Luck {
       }
     }
     if (len === count) {
-      this.clearPointsList.push({
+      that.clearPointsList.push({
         x1: x1,
         y1: y1,
-        x2: x1 + this.size,
-        y2: y1 + this.size
+        x2: x1 + that.size,
+        y2: y1 + that.size
       })
     }
-    if (this.clearPointsList.length && this.size * this.size * this.clearPointsList.length > this.scale * this.totalArea) {
-      this.show = true;
+    if (len && that.size * that.size * len > that.scale * that.totalArea) {
+      that.show = true;
     }
 
-    this.ctx.save();
-    this.ctx.beginPath();
-    this.ctx.arc(x + this.size, y + this.size, this.size, 0, 2 * Math.PI);
-    this.ctx.clip();
-    this.ctx.clearRect(x, y, 2 * this.size, 2 * this.size);
-    this.ctx.restore();
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x + that.size, y + that.size, that.size, 0, 2 * Math.PI);
+    ctx.clip();
+    ctx.clearRect(x, y, 2 * that.size, 2 * that.size);
+    ctx.restore();
 
-    this.ctx.draw(true);
+    ctx.draw(true);
   }
   //操作手势
   bindTouch() {
@@ -78,9 +84,10 @@ class Luck {
       _this.eraser(e);
     }
     _this.page.onTouchEnd = function (e) {
-      if (_this.show) {
-        _this.ctx.clearRect(0, 0, _this.width, _this.height);
-        _this.ctx.draw();
+      let ctx = wx.createCanvasContext(e.currentTarget.dataset.id, this);
+      if (this[e.currentTarget.dataset.id].show) {
+        ctx.clearRect(0, 0, _this.width, _this.height);
+        ctx.draw();
       }
     }
   }

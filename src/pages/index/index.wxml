@@ -1,1 +1,4 @@
-<canvas canvas-id="luck" style=" width: {{width}}px;height: {{height}}px;background: url('https://rattenking.gitee.io/stone/images/wx/images/juan.png') no-repeat center center" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd"></canvas>
+<canvas canvas-id="luck" style=" width: {{width}}px;height: {{height}}px;background: url('https://rattenking.gitee.io/stone/images/wx/images/juan.png') no-repeat center center" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd" data-id="luck"></canvas>
+<canvas canvas-id="luck1" style=" width: {{width}}px;height: {{height}}px;background: url('https://rattenking.gitee.io/stone/images/wx/images/juan.png') no-repeat center center" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd" data-id="luck1"></canvas>
+
+
