@@ -1,4 +1,11 @@
 # Wechat-ScratchCard
 微信小程序模拟刮刮乐
 
-本人参考博文：https://blog.csdn.net/m0_38082783/article/details/79458895
+大致思路：
+canvas设置背景图（目前不支持绘制，清除的时候会一并清除掉）；在canvas上绘制灰色图层；通过绑定的事件，清除对应区域的涂层；清除达到一定面积后，清除所有灰色遮罩；
+
+进展一：以圆形像素为单位清除，使得清除效果更佳美观
+
+进展二：支持多个canvas
+
+本人所参考的博文：https://blog.csdn.net/m0_38082783/article/details/79458895
